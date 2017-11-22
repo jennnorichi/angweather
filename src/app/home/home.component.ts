@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   id_city = "";
   showLoader = true;
   showSearchData = false;
+  noResultsFound = false;
   cities = [];
   cityWeather = [];
   constructor(private _sharedService: SharedService) { 
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   }
 	findWeather() { 
 		for (let cityId of this.cities) {
+        this.noResultsFound = false;
 		    this._sharedService.findWeather(cityId)
             .subscribe(
             lstresult => {
@@ -45,6 +47,7 @@ export class HomeComponent implements OnInit {
 
     searchCityWeather(){
       if(this.id_city != ""){
+          this.noResultsFound = false;
           this.showLoader = true;
           this.cityWeather = [];
           this.showSearchData = true;
@@ -52,23 +55,26 @@ export class HomeComponent implements OnInit {
           .subscribe(
             lstresult => {
               console.log(lstresult);
-
-              this._sharedService.findWeather(lstresult[0]["woeid"])
-                          .subscribe(
-                          lstresult => {
-                            this.showLoader = false;
-                              var newDate = new Date(lstresult["consolidated_weather"][0]["applicable_date"]);
-                            this.cityWeather.push(new Weather(lstresult["woeid"],lstresult["title"], lstresult["consolidated_weather"][0]["min_temp"]
-                            , lstresult["consolidated_weather"][0]["max_temp"]
-                            , lstresult["consolidated_weather"][0]["the_temp"]
-                            , lstresult["consolidated_weather"][0]["weather_state_abbr"], newDate));
-                          },
-                          error => {
-                              console.log("Error. The findCityWeather result JSON value is as follows:");
-                              console.log(error);
-                          }
-                          ); 
-              console.log(lstresult);
+              if(lstresult.length > 0){
+                this._sharedService.findWeather(lstresult[0]["woeid"])
+                            .subscribe(
+                            lstresult => {
+                              this.showLoader = false;
+                                var newDate = new Date(lstresult["consolidated_weather"][0]["applicable_date"]);
+                              this.cityWeather.push(new Weather(lstresult["woeid"],lstresult["title"], lstresult["consolidated_weather"][0]["min_temp"]
+                              , lstresult["consolidated_weather"][0]["max_temp"]
+                              , lstresult["consolidated_weather"][0]["the_temp"]
+                              , lstresult["consolidated_weather"][0]["weather_state_abbr"], newDate));
+                            },
+                            error => {
+                                console.log("Error. The findCityWeather result JSON value is as follows:");
+                                console.log(error);
+                            }
+                            ); 
+                }else{
+                              this.showLoader = false;
+                  this.noResultsFound = true;
+                }
             },
             error => {
                 console.log("Error. The findCityWeather result JSON value is as follows:");
@@ -85,5 +91,6 @@ export class HomeComponent implements OnInit {
       this.cityWeather = [];
       this.showSearchData = false;          
       this.findWeather();
+      this.noResultsFound = false;  
     }
 }
