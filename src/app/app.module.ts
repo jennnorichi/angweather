@@ -11,13 +11,15 @@ import { CONST_ROUTING } from './app.routing';
 import { HomeComponent } from './home/home.component';
 
 import { SharedService } from "./shared.service";
+import { WeatherDetailComponent } from './weather-detail/weather-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     WeatherComponent,
-    HomeComponent
+    HomeComponent,
+    WeatherDetailComponent
   ],
   imports: [
     BrowserModule,

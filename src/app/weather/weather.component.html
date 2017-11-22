@@ -1,11 +1,12 @@
 <div class="col-sm-4">
-	<a class="weater card" href="http://www.google.com">
+	<a class="weater card" [routerLink]="['/weather', woeId]">
 		<div class="city-selected">
 			<article>
 
 				<div class="info">
 					<div class="city">{{cityName}}</div>
 					<!-- <div class="night">Night - 22:07 PM</div> -->
+					<div class="night">{{weatherDate | date:'EEEE'}}, {{weatherDate | date:'yyyy-MM-dd'}}</div>
 
 					<div class="temp">{{temperature | number : '1.2-2'}}°</div>
 

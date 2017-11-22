@@ -22,6 +22,10 @@ export class WeatherComponent implements OnInit {
 	@Input()
   weatherIcon: string = "";
 
+  @Input()
+  woeId: string = "";
+  @Input()
+  weatherDate: Date;
   constructor() { }
 
   ngOnInit() {

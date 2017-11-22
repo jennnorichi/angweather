@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<weather *ngFor="let weather of cityWeather" 
+		<weather *ngFor="let weather of cityWeather" [woeId]="weather.woeId" [weatherDate]="weather.date"
 [weatherIcon]="weather.tempIcon" [cityName]="weather.city" [temperature]="weather.theTemp"  [minTemperature]="weather.minTemp"  [maxTemperature]="weather.maxTemp">   </weather>
 		</div>
 	<div class="row" *ngIf="showLoader">

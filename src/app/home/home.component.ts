@@ -27,10 +27,12 @@ export class HomeComponent implements OnInit {
             .subscribe(
             lstresult => {
               this.showLoader = false;
-            	this.cityWeather.push(new Weather(lstresult["title"], lstresult["consolidated_weather"][0]["min_temp"]
+              
+                              var newDate = new Date(lstresult["consolidated_weather"][0]["applicable_date"]);
+            	this.cityWeather.push(new Weather(lstresult["woeid"], lstresult["title"], lstresult["consolidated_weather"][0]["min_temp"]
             	, lstresult["consolidated_weather"][0]["max_temp"]
             	, lstresult["consolidated_weather"][0]["the_temp"]
-            	, lstresult["consolidated_weather"][0]["weather_state_abbr"]));
+            	, lstresult["consolidated_weather"][0]["weather_state_abbr"], newDate));
             },
             error => {
                 console.log("Error. The findCityWeather result JSON value is as follows:");
@@ -55,10 +57,11 @@ export class HomeComponent implements OnInit {
                           .subscribe(
                           lstresult => {
                             this.showLoader = false;
-                            this.cityWeather.push(new Weather(lstresult["title"], lstresult["consolidated_weather"][0]["min_temp"]
+                              var newDate = new Date(lstresult["consolidated_weather"][0]["applicable_date"]);
+                            this.cityWeather.push(new Weather(lstresult["woeid"],lstresult["title"], lstresult["consolidated_weather"][0]["min_temp"]
                             , lstresult["consolidated_weather"][0]["max_temp"]
                             , lstresult["consolidated_weather"][0]["the_temp"]
-                            , lstresult["consolidated_weather"][0]["weather_state_abbr"]));
+                            , lstresult["consolidated_weather"][0]["weather_state_abbr"], newDate));
                           },
                           error => {
                               console.log("Error. The findCityWeather result JSON value is as follows:");
@@ -76,7 +79,7 @@ export class HomeComponent implements OnInit {
     }
 
     clearCitySearch(){
-    
+
       this.id_city = "";
       this.showLoader = true;
       this.cityWeather = [];

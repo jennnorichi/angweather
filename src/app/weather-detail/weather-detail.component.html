@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="row">
+		<weather *ngFor="let weather of cityWeather" 
+[weatherIcon]="weather.tempIcon" [cityName]="weather.city" [temperature]="weather.theTemp"  [minTemperature]="weather.minTemp"  [maxTemperature]="weather.maxTemp" [weatherDate]="weather.date" >   </weather>
+	</div>
+	<div class="row" *ngIf="showLoader">
+        <div class="col-md-12">
+            <div class="loader">
+                <p>Loading...</p>
+                <div class="loader-inner"></div>
+                <div class="loader-inner"></div>
+                <div class="loader-inner"></div>
+            </div>
+		</div>
+	</div>
+</div>
