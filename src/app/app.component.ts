@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  initialCount = 10;
+
+  testVariable = 22;
 }
